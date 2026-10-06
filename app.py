@@ -2,23 +2,24 @@ import random
 import streamlit as st
 
 
-# =========================
+# =========================================================
 # PAGE CONFIG
-# =========================
+# =========================================================
 
 st.set_page_config(
     page_title="Fake News Headline Generator",
-    page_icon="📰",
     layout="centered"
 )
 
 
-# =========================
+# =========================================================
 # NEWS DATA
-# =========================
+# =========================================================
 
 news_data = {
+
     "Technology": {
+
         "subjects": [
             "Scientists",
             "Engineers",
@@ -52,7 +53,9 @@ news_data = {
         ]
     },
 
+
     "Science": {
+
         "subjects": [
             "Scientists",
             "Researchers",
@@ -81,12 +84,14 @@ news_data = {
             "a strange biological phenomenon",
             "a hidden ocean",
             "a mysterious substance",
-            "an unusual scientific discovery",
+            "an unusual discovery",
             "a new form of energy"
         ]
     },
 
+
     "Sports": {
+
         "subjects": [
             "Football Stars",
             "Cricket Players",
@@ -120,7 +125,9 @@ news_data = {
         ]
     },
 
+
     "World": {
+
         "subjects": [
             "Government Officials",
             "World Leaders",
@@ -156,209 +163,287 @@ news_data = {
 }
 
 
-# =========================
+# =========================================================
 # SESSION STATE
-# =========================
+# =========================================================
 
 if "headlines" not in st.session_state:
     st.session_state.headlines = []
 
 
-# =========================
-# CUSTOM CSS
-# =========================
+# =========================================================
+# DARK THEME
+# =========================================================
 
-st.markdown("""
-<style>
+st.markdown(
+    """
+    <style>
 
-.main {
-    max-width: 900px;
-}
+    /* Application */
 
-.hero {
-    text-align: center;
-    padding: 25px 10px 10px 10px;
-}
+    .stApp {
+        background-color: #080808;
+        color: #ffffff;
+    }
 
-.hero-title {
-    font-size: 45px;
-    font-weight: 800;
-    margin-bottom: 5px;
-}
-
-.hero-text {
-    font-size: 18px;
-    color: #777;
-}
-
-.headline-card {
-    padding: 22px;
-    margin: 15px 0;
-    border-radius: 14px;
-    border: 1px solid #ddd;
-    background-color: #fafafa;
-    font-size: 22px;
-    font-weight: 600;
-}
-
-.small-text {
-    color: #777;
-    font-size: 14px;
-}
-
-</style>
-""", unsafe_allow_html=True)
+    .block-container {
+        max-width: 850px;
+        padding-top: 55px;
+        padding-bottom: 50px;
+    }
 
 
-# =========================
+    /* Hide Streamlit branding */
+
+    #MainMenu {
+        visibility: hidden;
+    }
+
+    footer {
+        visibility: hidden;
+    }
+
+    header {
+        background: transparent !important;
+    }
+
+
+    /* Main title */
+
+    .app-title {
+        text-align: center;
+        color: #ffffff;
+        font-size: 44px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 10px;
+    }
+
+    .app-subtitle {
+        text-align: center;
+        color: #777777;
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+
+
+    /* Generator panel */
+
+    .panel {
+        background-color: #111111;
+        border: 1px solid #242424;
+        border-radius: 16px;
+        padding: 28px;
+        margin-bottom: 20px;
+    }
+
+
+    /* Streamlit labels */
+
+    label {
+        color: #dddddd !important;
+        font-weight: 600 !important;
+    }
+
+
+    /* Select box */
+
+    div[data-baseweb="select"] > div {
+        background-color: #181818 !important;
+        border: 1px solid #303030 !important;
+        color: #ffffff !important;
+        border-radius: 9px !important;
+    }
+
+
+    /* Buttons */
+
+    .stButton > button {
+        width: 100%;
+        height: 46px;
+        background-color: #ffffff !important;
+        color: #080808 !important;
+        border: none !important;
+        border-radius: 9px !important;
+        font-weight: 700 !important;
+    }
+
+    .stButton > button:hover {
+        background-color: #dcdcdc !important;
+        color: #000000 !important;
+    }
+
+
+    /* Results heading */
+
+    .results-title {
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 700;
+        margin-top: 35px;
+        margin-bottom: 18px;
+    }
+
+
+    /* Disclaimer */
+
+    .disclaimer {
+        text-align: center;
+        color: #555555;
+        font-size: 12px;
+        margin-top: 40px;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+# =========================================================
 # HEADER
-# =========================
+# =========================================================
 
-st.markdown("""
-<div class="hero">
+st.markdown(
+    '<div class="app-title">Fake News Headline Generator</div>',
+    unsafe_allow_html=True
+)
 
-<div class="hero-title">
-📰 Fake News Headline Generator
-</div>
-
-<div class="hero-text">
-Generate random fictional and satirical news headlines using Python.
-</div>
-
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    '<div class="app-subtitle">'
+    'Generate fictional headlines by combining random subjects, actions, and topics.'
+    '</div>',
+    unsafe_allow_html=True
+)
 
 
-st.divider()
+# =========================================================
+# GENERATOR SETTINGS
+# =========================================================
+
+# st.markdown(
+#     '<div class="panel">',
+#     unsafe_allow_html=True
+# )
+
+category = st.selectbox(
+    "News Category",
+    list(news_data.keys())
+)
+
+number_of_headlines = st.slider(
+    "Number of Headlines",
+    min_value=1,
+    max_value=10,
+    value=3
+)
+
+st.markdown(
+    '</div>',
+    unsafe_allow_html=True
+)
 
 
-# =========================
-# SIDEBAR
-# =========================
+# =========================================================
+# BUTTONS
+# =========================================================
 
-with st.sidebar:
+generate_col, clear_col = st.columns(2)
 
-    st.header("⚙️ Generator Settings")
 
-    category = st.selectbox(
-        "Choose News Category",
-        list(news_data.keys())
+with generate_col:
+
+    generate_button = st.button(
+        "Generate Headlines",
+        use_container_width=True
     )
 
-    headline_count = st.slider(
-        "Number of Headlines",
-        min_value=1,
-        max_value=10,
-        value=1
-    )
 
-    st.divider()
+with clear_col:
 
-    st.write("### 📊 Generator Info")
-
-    st.write(f"Category: **{category}**")
-
-    st.write(
-        f"Available words: "
-        f"**{len(news_data[category]['subjects']) + len(news_data[category]['actions']) + len(news_data[category]['topics'])}**"
+    clear_button = st.button(
+        "Clear Results",
+        use_container_width=True
     )
 
 
-# =========================
-# GENERATOR FUNCTION
-# =========================
+# =========================================================
+# CLEAR
+# =========================================================
 
-def generate_headline(category):
+if clear_button:
+
+    st.session_state.headlines = []
+
+    st.rerun()
+
+
+# =========================================================
+# GENERATE
+# =========================================================
+
+if generate_button:
 
     data = news_data[category]
 
-    subject = random.choice(data["subjects"])
-    action = random.choice(data["actions"])
-    topic = random.choice(data["topics"])
+    st.session_state.headlines = []
 
-    return f"{subject} {action} {topic}"
+    for _ in range(number_of_headlines):
 
+        subject = random.choice(data["subjects"])
 
-# =========================
-# GENERATE BUTTON
-# =========================
+        action = random.choice(data["actions"])
 
-if st.button(
-    "🚀 Generate Headlines",
-    use_container_width=True
-):
+        topic = random.choice(data["topics"])
 
-    for _ in range(headline_count):
+        headline = f"{subject} {action} {topic}"
 
-        headline = generate_headline(category)
-
-        st.session_state.headlines.insert(0, {
-            "category": category,
-            "headline": headline
-        })
+        st.session_state.headlines.append(
+            {
+                "headline": headline,
+                "category": category
+            }
+        )
 
 
-# =========================
-# DISPLAY CURRENT HEADLINES
-# =========================
+# =========================================================
+# RESULTS
+# =========================================================
 
 if st.session_state.headlines:
 
-    st.subheader("✨ Generated Headlines")
+    st.markdown(
+        '<div class="results-title">Generated Headlines</div>',
+        unsafe_allow_html=True
+    )
 
-    for item in st.session_state.headlines[:headline_count]:
+    for item in st.session_state.headlines:
 
-        st.markdown(
-            f"""
-            <div class="headline-card">
-                📰 {item["headline"]}
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        # Actual Streamlit text
+        st.subheader(item["headline"])
 
         st.caption(
-            f"Category: {item['category']}"
+            f"{item['category']} / Fictional News"
         )
+
+        st.divider()
 
 
 else:
 
-    st.info(
-        "Choose a category and click **Generate Headlines** to create your first headline."
+    st.write(
+        "Select a category and click Generate Headlines."
     )
 
 
-# =========================
-# CLEAR HISTORY
-# =========================
-
-if st.session_state.headlines:
-
-    st.divider()
-
-    if st.button(
-        "🗑️ Clear Generated Headlines",
-        use_container_width=True
-    ):
-        st.session_state.headlines = []
-        st.rerun()
-
-
-# =========================
-# FOOTER
-# =========================
-
-st.divider()
+# =========================================================
+# DISCLAIMER
+# =========================================================
 
 st.markdown(
     """
-    <div style="text-align:center; color:#888;">
-        Fake News Headline Generator • Built with Python & Streamlit
-        <br>
-        <span style="font-size:12px;">
-        Fictional content for entertainment and educational purposes.
-        </span>
+    <div class="disclaimer">
+        Fictional content generated for educational and entertainment purposes.
     </div>
     """,
     unsafe_allow_html=True
