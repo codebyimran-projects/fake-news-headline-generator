@@ -2,7 +2,7 @@
 
 A simple and interactive **Streamlit web application** that generates fictional news headlines by randomly combining subjects, actions, and topics.
 
-> **Note:** This project generates fictional content for educational and entertainment purposes. It does not generate or verify real news.
+> **Note:** This project generates fictional content for educational and entertainment purposes. It does not generate, verify, or predict real news.
 
 ## Features
 
@@ -26,11 +26,11 @@ The generator currently includes:
 - Sports
 - World
 
-Each category contains its own collection of subjects, actions, and topics to create relevant fictional headlines.
+Each category has its own collection of subjects, actions, and topics to create relevant fictional headlines.
 
 ## How It Works
 
-The application uses Python's `random` module to randomly select a subject, action, and topic from separate lists.
+The application uses Python's built-in `random` module to randomly select a subject, action, and topic from separate lists.
 
 ```text
 Subject + Action + Topic
@@ -52,9 +52,9 @@ Every time headlines are generated, the application creates new random combinati
 
 ## Technologies Used
 
-- Python
-- Streamlit
-- Random Module
+- **Python**
+- **Streamlit**
+- **Random Module**
 
 ## Project Structure
 
@@ -71,10 +71,10 @@ fake-news-headline-generator/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/codebyimran/fake-news-headline-generator.git
+git clone https://github.com/codebyimran-projects/fake-news-headline-generator.git
 ```
 
-### 2. Open the Project Folder
+### 2. Navigate to the Project
 
 ```bash
 cd fake-news-headline-generator
@@ -96,7 +96,9 @@ The application will open in your browser.
 
 ## Requirements
 
-Create a `requirements.txt` file containing:
+The project requires **Streamlit**.
+
+Your `requirements.txt` file should contain:
 
 ```text
 streamlit
@@ -136,7 +138,7 @@ This project demonstrates several Python and application-development concepts:
 Possible future improvements include:
 
 - More news categories
-- Larger word collections
+- Larger subject, action, and topic collections
 - Custom user-created word lists
 - Headline history
 - Copy-to-clipboard functionality
@@ -146,14 +148,20 @@ Possible future improvements include:
 
 ## Disclaimer
 
-This application is a **fictional headline generator**. Generated content should not be treated as factual news or used as a source of real-world information.
+This application is a **fictional headline generator**.
+
+The generated content should not be treated as factual news or used as a source of real-world information.
 
 ## Author
 
 **Muhammad Imran**
 
-Website: **[@codebyimran](https://codebyimran.com)**
+Website: [codebyimran.com](https://codebyimran.com)
+
+GitHub Repository: [fake-news-headline-generator](https://github.com/codebyimran-projects/fake-news-headline-generator)
 
 Built with **Python and Streamlit**.
+
+---
 
 If you found this project useful, consider giving the repository a star.
